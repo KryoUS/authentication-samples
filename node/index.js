@@ -17,11 +17,8 @@ var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 var request        = require('request');
 var handlebars     = require('handlebars');
 
-// Define our constants, you will change these with your own
-const TWITCH_CLIENT_ID = '<YOUR CLIENT ID HERE>';
-const TWITCH_SECRET    = '<YOUR CLIENT SECRET HERE>';
-const SESSION_SECRET   = '<SOME SECRET HERE>';
-const CALLBACK_URL     = '<YOUR REDIRECT URL HERE>';  // You can run locally with - http://localhost:3000/auth/twitch/callback
+// Config moved to file that is excluded from Github
+const { TWITCH_CLIENT_ID, TWITCH_SECRET, SESSION_SECRET, CALLBACK_URL } = require('./config.json');
 
 // Initialize Express and middlewares
 var app = express();
@@ -71,6 +68,7 @@ passport.use('twitch', new OAuth2Strategy({
     profile.accessToken = accessToken;
     profile.refreshToken = refreshToken;
 
+    console.log(profile);
     // Securely store user profile in your DB
     //User.findOrCreate(..., function(err, user) {
     //  done(err, user);
